@@ -10,6 +10,7 @@ class MenuController
   def main_menu
     puts "Main Menu - #{@address_book.entries.count} entries"
     puts "1 - View all entries"
+    puts "6 - View entry Number n"
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
@@ -37,6 +38,10 @@ class MenuController
     when 5
       puts "Good-bye!"
       exit(0)
+    when 6
+      system "clear"
+      view_entry_n
+      main_menu
 
     else
       system "clear"
@@ -98,6 +103,22 @@ class MenuController
       puts "#{selection} is not a valid input"
       entries_submenu(entry)
     end
+  end
+
+  def view_entry_n
+    puts "Enter an entry #"
+    n = gets.chomp.to_i
+    if n < @address_book.entries.size
+      entry = @address_book.entries[n]
+      puts entry.to_s
+      entry_submenu(entry)
+    else
+      system "clear"
+      puts "#{n} is not a valid entry"
+      view_entry_n
+    end
+    system "clear"
+    puts "End of entries"
   end
 
 end
