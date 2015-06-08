@@ -14,6 +14,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "666 - Demonize all entries"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -37,6 +38,10 @@ class MenuController
     when 5
       puts "Good-bye!"
       exit(0)
+    when 666
+      system "clear"
+      demonize_all_entries
+      main_menu
 
     else
       system "clear"
@@ -174,6 +179,19 @@ class MenuController
       system "clear"
       puts "#{selection} is not a valid input"
       entries_submenu(entry)
+    end
+  end
+
+  def demonize_all_entries
+    puts "ARE YOU SURE YOU WANT TO DEMONIZE?! YES or NO?"
+    selection = gets.chomp
+    if selection == 'YES'
+      while @address_book.entries.size > 0
+        delete_entry(@address_book.entries[0])
+      end
+      puts "All entries demonized."
+    else
+      puts "Demonization cancelled."
     end
   end
 
